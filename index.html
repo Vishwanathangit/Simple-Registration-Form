@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #registrationForm {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        #registrationForm div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        p {
+            margin: 5px 0 0;
+            font-size: 13px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        button:hover:enabled {
+            background-color: #0056b3;
+        }
+
+        #nameerror,
+        #emailerror,
+        #passworderror {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Registration Form</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="names">Name:</label>
+            <input type="text" id="names">
+            <p id="nameerror"></p>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+            <p id="emailerror"></p>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password">
+            <p id="passworderror"></p>
+        </div>
+
+        <div>
+            <button type="submit" id="submitbtn" disabled>Submit</button>
+        </div>
+    </form>
+
+    <script>
+        var names = document.getElementById("names");
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+        var submitbtn = document.getElementById("submitbtn");
+
+        var nameerror = document.getElementById("nameerror");
+        var emailerror = document.getElementById("emailerror");
+        var passworderror = document.getElementById("passworderror");
+
+        names.addEventListener("input", function () {
+            if (names.value.trim() === "") {
+                nameerror.textContent = "Name is required.";
+            } else {
+                nameerror.textContent = "";
+            }
+            checkAllFields();
+        });
+
+        email.addEventListener("input", function () {
+            var emailValue = email.value;
+            if (emailValue.includes("@") && emailValue.includes(".")) {
+                emailerror.textContent = "";
+            } else {
+                emailerror.textContent = "Email must contain @ and .";
+            }
+            checkAllFields();
+        });
+
+        password.addEventListener("input", function () {
+            if (password.value.length < 6) {
+                passworderror.textContent = "Password must be at least 6 characters.";
+            } else {
+                passworderror.textContent = "";
+            }
+            checkAllFields();
+        });
+
+        function checkAllFields() {
+            if (
+                names.value.trim() !== "" &&
+                email.value.includes("@") &&
+                email.value.includes(".") &&
+                password.value.length >= 6
+            ) {
+                submitbtn.disabled = false;
+            } else {
+                submitbtn.disabled = true;
+            }
+        }
+    </script>
+</body>
+
+</html>
